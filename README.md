@@ -73,3 +73,17 @@ This code is based on the following work. Please cite if you use it.
   organization={IEEE}
 }
 ```
+
+[arxiv version](https://arxiv.org/abs/2203.10422):
+```
+@misc{https://doi.org/10.48550/arxiv.2203.10422,
+  doi = {10.48550/ARXIV.2203.10422},  
+  url = {https://arxiv.org/abs/2203.10422},  
+  author = {Ndiour, Ibrahima J. and Ahuja, Nilesh A. and Tickoo, Omesh},  
+  keywords = {Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},  
+  title = {Subspace Modeling for Fast Out-Of-Distribution and Anomaly Detection},  
+  publisher = {arXiv},  
+  year = {2022},  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+```
