@@ -10,6 +10,7 @@ class FeatureExtractor(nn.Module):
 
         self.layer_name = layer_name
         self.pool_factor = pool_factor
+        self.feature_shapes = dict()
 
     def __repr__(self):
         out = 'Layer {}\n'.format(self.layer_name)
@@ -23,8 +24,11 @@ class FeatureExtractor(nn.Module):
         out = self.model(data)
         for k in out:
             out[k] = F.avg_pool2d(out[k], pool)
-            out[k] = out[k].view(out[k].size(0), -1)
+            self.feature_shapes[k] = out[k].shape
+            out[k] = out[k].reshape(out[k].size(0), -1)
         return out[k]
 
+    def get_feature_shapes(self):
+        return self.feature_shapes[self.layer_name]
 
 
