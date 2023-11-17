@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This repo presents a fast, principled approach for detecting anomalous and out-of-distribution (OOD) samples in deep neural networks (DNN). We propose the application of linear statistical dimensionality reduction techniques on the semantic features produced by a DNN, in order to capture the low-dimensional subspace truly spanned by said features. We show that the feature reconstruction error (FRE), which is the l2-norm of the difference between the original feature in the high-dimensional space and the pre-image of its low-dimensional reduced embedding, is highly effective for OOD and anomaly detection. To generalize to intermediate features produced at any given layer, we extend the methodology by applying nonlinear kernel-based methods. Experiments using standard image datasets and DNN architectures demonstrate that our method meets or exceeds best-in-class quality performance, but at a fraction of the computational and memory cost required by the state of the art. It can be trained and run very efficiently.
+This repo presents a fast, principled approach for detecting anomalous and out-of-distribution (OOD) samples in deep neural networks (DNN). We propose the application of linear statistical dimensionality reduction techniques on the semantic features produced by a DNN, in order to capture the low-dimensional subspace truly spanned by said features. We show that the feature reconstruction error (FRE), which is the l2-norm of the difference between the original feature in the high-dimensional space and the pre-image of its low-dimensional reduced embedding, is highly effective for OOD and anomaly detection. This dimensionality reduction can be performed using either Principal Component Analysis (PCA), or via a shallow (single layer) linear auto-encoder (AE). In case of the AE, if the weights are shared between the encoder and decoder, i.e $W_{dec} = W_{enc}^T$, then it converges to the same solution as the PCA. Experiments using standard image datasets and DNN architectures demonstrate that our method meets or exceeds best-in-class quality performance, but at a fraction of the computational and memory cost required by the state of the art. It can be trained and run very efficiently.
 
 ### Dependencies
 
@@ -40,6 +40,17 @@ Two other backbones are supported: Resnet18 and Resnet50. To run with a differen
 ```bash
 python run_mvtec.py --model resnet18
 ```
+
+Three dimensionality reduction methods are supported: pca, tae (Tied AE), ae (plain AE without shared weights) and any one or more of them can be optionally specified (default: all three modes are run). For example, the command line below will generate results for both PCA and Tied AE. Additionally, the number of training epochs can be optionally be specified if one of the modes being run is a type of AE (default: 250):
+    
+```bash
+python run_mvtec.py --modes pca tae --epochs 200
+```
+
+To save the heatmaps used for anomaly segmentation, use the `--save_heatmaps` option and specify an optional output path (default: `.output`):
+```bash
+python run_mvtec.py --save_heatmaps --output_path results
+```
     
 To run on GPU:
 
@@ -56,24 +67,25 @@ python run_mvtec.py --object_category hazelnut
 Sample commands using all options
 
 ```bash
-python run_mvtec.py --dataset_directory <MVTec dataset path> --model resnet18 --object_category hazelnut --gpu
+python run_mvtec.py --dataset_directory <MVTec dataset path> --model resnet18 --object_category hazelnut --gpu --modes pca --save_heatmaps
 ```
 
 ### Reference 
 This code is based on the following work. Please cite if you use it.
 
 ```tex
-@inproceedings{fre2022,
-  title={Subspace Modeling for Fast Out-Of-Distribution and Anomaly Detection},
+@inproceedings{fre2023,
+  title={FRE: A Fast Method For Anomaly Detection And Segmentation},
   author={Ibrahima J. Ndiour and
           Nilesh A. Ahuja and
+          Utku Genc and
           Omesh Tickoo}
-  booktitle={2022 IEEE International Conference on Image Processing (ICIP)},
-  year={2022},
-  organization={IEEE}
+  booktitle={British Machine Vision Conference (BMVC)},
+  year={2023},
 }
 ```
 
+<!--
 [arxiv version](https://arxiv.org/abs/2203.10422):
 ```
 @misc{https://doi.org/10.48550/arxiv.2203.10422,
@@ -87,5 +99,6 @@ This code is based on the following work. Please cite if you use it.
   copyright = {arXiv.org perpetual, non-exclusive license}
 }
 ```
+-->
 
 <!-- Reviewed 9/11/23 michaelbeale-il -->
