@@ -1,0 +1,21 @@
+body {
+    margin: 2% auto;
+    max-width: 800px;
+}
+
+header {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+figure {
+    display: inline-block;
+}
+
+.figure-containers {
+    display: block;
+    margin: auto;
+}
