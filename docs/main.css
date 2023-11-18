@@ -1,21 +1,43 @@
 body {
     margin: 2% auto;
     max-width: 800px;
+    padding: 2%;
+}
+
+p {
+    text-align: justify;
+}
+
+p.centered { 
+    text-align: center;
 }
 
 header {
     text-align: center;
 }
 
-h2 {
+footer {
     text-align: center;
 }
 
-figure {
-    display: inline-block;
+h2, h3 {
+    text-align: center;
 }
 
 .figure-containers {
     display: block;
     margin: auto;
+}
+
+figcaption {
+    font-size: small;
+    font-style: italic;
+    text-align: center;
+}
+
+img {
+    max-width:100%;
+    height: auto;
+    margin: auto;
+    display: block;
 }
